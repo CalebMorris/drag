@@ -5,19 +5,36 @@ public class GameController : MonoBehaviour
 {
 	public GameObject hazard;
 	public Vector3 spawnValues;
+	public int hazardCount;
+	public float startWait;
+	public float waveWait;
+	public float spawnWaitLowerLimit;
+	public float spawnWaitUpperLimit;
 
 	void Start()
 	{
-		SpawnWaves();
+		StartCoroutine(SpawnWaves());
 	}
 
-	void SpawnWaves()
+	IEnumerator SpawnWaves()
 	{
-		Vector3 spawnPosition = new Vector3(spawnValues.x, Random.Range(-spawnValues.y, spawnValues.y), spawnValues.z);
+		yield return new WaitForSeconds(startWait);
 
-		// Adjust the forward vector to point toward -x
-		Quaternion spawnRotation = Quaternion.identity * Quaternion.Euler(0.0f, 90.0f, 0.0f);
+		while (true)
+		{
+			for (int i = 0; i < hazardCount; ++i)
+			{
+				Vector3 spawnPosition = new Vector3(spawnValues.x, Random.Range(-spawnValues.y, spawnValues.y), spawnValues.z);
 
-		Instantiate(hazard, spawnPosition, spawnRotation);
+				// Adjust the forward vector to point toward -x
+				Quaternion spawnRotation = Quaternion.identity * Quaternion.Euler(0.0f, 90.0f, 0.0f);
+
+				Instantiate(hazard, spawnPosition, spawnRotation);
+
+				yield return new WaitForSeconds(Random.Range(spawnWaitLowerLimit, spawnWaitUpperLimit));
+			}
+
+			yield return new WaitForSeconds(waveWait);
+		}
 	}
 }
