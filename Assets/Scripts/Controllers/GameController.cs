@@ -11,8 +11,23 @@ public class GameController : MonoBehaviour
 	public float spawnWaitLowerLimit;
 	public float spawnWaitUpperLimit;
 
+	public GUIText scoreText;
+	public int score;
+
+	public void AddScore(int newScore)
+	{
+		score += newScore;
+		UpdateScore();
+	}
+
+	void UpdateScore()
+	{
+		scoreText.text = string.Format("Score: {0}", score);
+	}
+
 	void Start()
 	{
+		AddScore(0);
 		StartCoroutine(SpawnWaves());
 	}
 
