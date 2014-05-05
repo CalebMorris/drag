@@ -12,7 +12,23 @@ public class GameController : MonoBehaviour
 	public float spawnWaitUpperLimit;
 
 	public GUIText scoreText;
+	public GUIText gameOverText;
+	public GUIText restartText;
 	public int score;
+
+	bool isGameOver;
+
+	public void GameOver()
+	{
+		isGameOver = true;
+		gameOverText.text = "Game Over";
+		restartText.text = "Tap to Restart";
+	}
+
+	public void Restart()
+	{
+		Application.LoadLevel(Application.loadedLevel);
+	}
 
 	public void AddScore(int newScore)
 	{
@@ -27,15 +43,29 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+		gameOverText.text = "";
+		restartText.text = "";
 		AddScore(0);
 		StartCoroutine(SpawnWaves());
+	}
+
+	void Update()
+	{
+		if (isGameOver && Input.touchCount > 0)
+		{
+			Touch touch = Input.GetTouch(0);
+			if (touch.phase == TouchPhase.Began)
+			{
+				Restart();
+			}
+		}
 	}
 
 	IEnumerator SpawnWaves()
 	{
 		yield return new WaitForSeconds(startWait);
 
-		while (true)
+		while (!isGameOver)
 		{
 			for (int i = 0; i < hazardCount; ++i)
 			{
@@ -47,6 +77,9 @@ public class GameController : MonoBehaviour
 				Instantiate(hazard, spawnPosition, spawnRotation);
 
 				yield return new WaitForSeconds(Random.Range(spawnWaitLowerLimit, spawnWaitUpperLimit));
+
+				if (isGameOver)
+					break;
 			}
 
 			yield return new WaitForSeconds(waveWait);
