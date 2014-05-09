@@ -71,10 +71,7 @@ public class GameController : MonoBehaviour
 			{
 				Vector3 spawnPosition = new Vector3(spawnValues.x, Random.Range(-spawnValues.y, spawnValues.y), spawnValues.z);
 
-				// Adjust the forward vector to point toward -x
-				Quaternion spawnRotation = Quaternion.identity * Quaternion.Euler(0.0f, 90.0f, 0.0f);
-
-				Instantiate(hazard, spawnPosition, spawnRotation);
+				Instantiate(hazard, spawnPosition, Quaternion.identity);
 
 				yield return new WaitForSeconds(Random.Range(spawnWaitLowerLimit, spawnWaitUpperLimit));
 

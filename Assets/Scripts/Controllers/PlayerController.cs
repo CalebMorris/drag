@@ -17,28 +17,24 @@ public class PlayerController : MonoBehaviour
 	{
 		if (rigidbody.position.x < boundary.xMin)
 		{
-			Debug.Log("xMin");
 			rigidbody.position = new Vector3(boundary.xMin, rigidbody.position.y, rigidbody.position.z);
 			rigidbody.velocity = Vector3.zero;
 			return;
 		}
 		else if (rigidbody.position.x > boundary.xMax)
 		{
-			Debug.Log("xMax");
 			rigidbody.position = new Vector3(boundary.xMax, rigidbody.position.y, rigidbody.position.z);
 			rigidbody.velocity = Vector3.zero;
 			return;
 		}
 		if (rigidbody.position.y < boundary.yMin)
 		{
-			Debug.Log("yMin");
 			rigidbody.position = new Vector3(rigidbody.position.x, boundary.yMin, rigidbody.position.z);
 			rigidbody.velocity = Vector3.zero;
 			return;
 		}
 		else if (rigidbody.position.y > boundary.yMax)
 		{
-			Debug.Log("yMax");
 			rigidbody.position = new Vector3(rigidbody.position.x, boundary.yMax, rigidbody.position.z);
 			rigidbody.velocity = Vector3.zero;
 			return;
