@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
+#region 3D
 		if (rigidbody.position.x < boundary.xMin)
 		{
 			rigidbody.position = new Vector3(boundary.xMin, rigidbody.position.y, rigidbody.position.z);
@@ -54,5 +55,8 @@ public class PlayerController : MonoBehaviour
 				////transform.position = Vector3.Lerp(transform.position, touchPosition, Time.deltaTime);
 			}
 		}
+
+#endregion
+
 	}
 }

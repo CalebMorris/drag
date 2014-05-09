@@ -13,15 +13,18 @@ public class GameController : MonoBehaviour
 
 	public GUIText scoreText;
 	public GUIText gameOverText;
+	public GUIText gameOverScoreText;
 	public GUIText restartText;
-	public int score;
+	int score;
 
 	bool isGameOver;
 
 	public void GameOver()
 	{
 		isGameOver = true;
+		scoreText.text = "";
 		gameOverText.text = "Game Over";
+		gameOverScoreText.text = string.Format("Score: {0}", this.score);
 		restartText.text = "Tap to Restart";
 	}
 
@@ -32,6 +35,8 @@ public class GameController : MonoBehaviour
 
 	public void AddScore(int newScore)
 	{
+		if (isGameOver)
+			return;
 		score += newScore;
 		UpdateScore();
 	}
@@ -70,6 +75,8 @@ public class GameController : MonoBehaviour
 			for (int i = 0; i < hazardCount; ++i)
 			{
 				Vector3 spawnPosition = new Vector3(spawnValues.x, Random.Range(-spawnValues.y, spawnValues.y), spawnValues.z);
+
+				Quaternion rotation = Quaternion.identity * Quaternion.Euler(new Vector3(90f, 0f, 0f));
 
 				Instantiate(hazard, spawnPosition, Quaternion.identity);
 

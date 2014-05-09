@@ -7,6 +7,6 @@ public class Mover : MonoBehaviour
 
 	void Start()
 	{
-		rigidbody2D.velocity = new Vector2(speed, 0);
+		rigidbody.velocity = new Vector3(speed, 0f, 0f);
 	}
 }
