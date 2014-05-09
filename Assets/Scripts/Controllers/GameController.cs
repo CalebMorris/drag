@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour
 {
 	public GameObject hazard;
 	public Vector3 spawnValues;
+	public Vector3 spawnValueOffsets;
 	public int hazardCount;
 	public float startWait;
 	public float waveWait;
@@ -49,6 +50,7 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		gameOverText.text = "";
+		gameOverScoreText.text = "";
 		restartText.text = "";
 		AddScore(0);
 		StartCoroutine(SpawnWaves());
@@ -70,20 +72,19 @@ public class GameController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(startWait);
 
-		while (!isGameOver)
+		while (true)
 		{
 			for (int i = 0; i < hazardCount; ++i)
 			{
-				Vector3 spawnPosition = new Vector3(spawnValues.x, Random.Range(-spawnValues.y, spawnValues.y), spawnValues.z);
+				Vector3 spawnPosition = new Vector3(spawnValueOffsets.x + spawnValues.x,
+				                                    spawnValueOffsets.y + Random.Range(-spawnValues.y, spawnValues.y),
+				                                    spawnValueOffsets.z + spawnValues.z);
 
 				Quaternion rotation = Quaternion.identity * Quaternion.Euler(new Vector3(90f, 0f, 0f));
 
 				Instantiate(hazard, spawnPosition, Quaternion.identity);
 
 				yield return new WaitForSeconds(Random.Range(spawnWaitLowerLimit, spawnWaitUpperLimit));
-
-				if (isGameOver)
-					break;
 			}
 
 			yield return new WaitForSeconds(waveWait);

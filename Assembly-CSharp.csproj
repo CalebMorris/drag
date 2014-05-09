@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\Descruction\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\Grav.cs" />
      <Compile Include="Assets\Scripts\Mover.cs" />
+     <Compile Include="Assets\Scripts\RiverBoundary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
