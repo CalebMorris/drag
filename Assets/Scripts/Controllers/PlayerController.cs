@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public sealed class Boundary
 {
-	public float xMin, xMax, yMin, yMax;
+	public float yMin, yMax;
 }
 
 public class PlayerController : MonoBehaviour
@@ -12,19 +12,20 @@ public class PlayerController : MonoBehaviour
 	public Boundary boundary;
 	public float maxDistance = 10.0f;
 	public float maxVelocity = 10.0f;
+	float xMin;
+
+	void Start()
+	{
+		xMin = Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(new Vector3(8f, 0f, 0f)) - new Vector3(Screen.width / 2, 0f, 0f)).x;
+		Debug.Log(string.Format("xMin:{0}",xMin));
+	}
 
 	void Update()
 	{
 #region 3D
-		if (rigidbody.position.x < boundary.xMin)
+		if (rigidbody.position.x < xMin)
 		{
-			rigidbody.position = new Vector3(boundary.xMin, rigidbody.position.y, rigidbody.position.z);
-			rigidbody.velocity = Vector3.zero;
-			return;
-		}
-		else if (rigidbody.position.x > boundary.xMax)
-		{
-			rigidbody.position = new Vector3(boundary.xMax, rigidbody.position.y, rigidbody.position.z);
+			rigidbody.position = new Vector3(xMin, rigidbody.position.y, rigidbody.position.z);
 			rigidbody.velocity = Vector3.zero;
 			return;
 		}
@@ -55,8 +56,6 @@ public class PlayerController : MonoBehaviour
 				////transform.position = Vector3.Lerp(transform.position, touchPosition, Time.deltaTime);
 			}
 		}
-
 #endregion
-
 	}
 }
