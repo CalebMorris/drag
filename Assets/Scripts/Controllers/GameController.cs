@@ -15,8 +15,10 @@ public class GameController : MonoBehaviour
 	public GUIText scoreText;
 	public GUIText gameOverText;
 	public GUIText gameOverScoreText;
+	public GUIText gameOverHighScoreText;
 	public GUIText restartText;
 	int score;
+	int highScore;
 
 	bool isGameOver;
 
@@ -27,6 +29,15 @@ public class GameController : MonoBehaviour
 		gameOverText.text = "Game Over";
 		gameOverScoreText.text = string.Format("Score: {0}", this.score);
 		restartText.text = "Tap to Restart";
+		if (score > highScore)
+		{
+			gameOverHighScoreText.text = string.Format("High Score: {0}", score);
+			PlayerPrefs.SetInt("highScore", score);
+		}
+		else
+		{
+			gameOverHighScoreText.text = string.Format("High Score: {0}", highScore);
+		}
 	}
 
 	public void Restart()
@@ -51,7 +62,12 @@ public class GameController : MonoBehaviour
 	{
 		gameOverText.text = "";
 		gameOverScoreText.text = "";
+		gameOverHighScoreText.text = "";
 		restartText.text = "";
+		highScore = PlayerPrefs.GetInt("highScore");
+
+		Debug.Log(highScore);
+
 		AddScore(0);
 		StartCoroutine(SpawnWaves());
 	}
