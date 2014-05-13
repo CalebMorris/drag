@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Descruction\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Descruction\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\Grav.cs" />
+     <Compile Include="Assets\Scripts\MainMenuGUI.cs" />
      <Compile Include="Assets\Scripts\Mover.cs" />
      <Compile Include="Assets\Scripts\RiverBoundary.cs" />
   </ItemGroup>
